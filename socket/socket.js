@@ -20,15 +20,15 @@ module.exports = (server) => {
     })
 
     /* join public room */
-    socket.on('join-public-room', async ({ userId }) => {
+    socket.on('join_public_room', async ({ userId }) => {
       const user = await User.findByPk(userId)
-      io.emit('new-join', {
+      io.emit('new_join', {
         name: user.name
       })
     })
 
     /* get public history */
-    socket.on('get-public-history', async (offset, limit, cb) => {
+    socket.on('get_public_history', async (offset, limit, cb) => {
       const message = await Message.findAll({
         offset,
         limit,
@@ -45,14 +45,14 @@ module.exports = (server) => {
     })
 
     /* public message */
-    socket.on('post-public-msg', async ({ msg, userId }) => {
+    socket.on('post_public_msg', async ({ msg, userId }) => {
       const message = await Message.create({
         RoomId: 1,
         UserId: userId,
         content: msg
       })
       const user = await User.findByPk(userId)
-      socket.broadcast.emit('get-public-msg', {
+      socket.broadcast.emit('get_public_msg', {
         msg: message.content,
         createdAt: message.createdAt,
         avatar: user.avatar
