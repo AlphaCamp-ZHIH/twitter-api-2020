@@ -9,6 +9,11 @@ if (process.NODE_ENV !== 'production') {
 const app = express()
 const port = process.env.PORT
 
+/* socket test */
+const http = require('http');
+const server = http.createServer(app);
+
+
 //bodyparse set
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
@@ -25,3 +30,12 @@ app.listen(port, () => console.log(`Example app listening on port ${port}!`))
 module.exports = app
 
 require('./routes/index')(app)
+/* socket test */
+const io = require('socket.io')(server)
+
+io.on('connection', (socket) => {
+  console.log(`User is online: ${socket.id}`)
+  io.on('disconnect', (socket) => {
+    console.log(`User is offline: ${socket.id}`)
+  })
+})
