@@ -2,6 +2,10 @@ const sockets = []
 const userSockets = {}
 const socketController = require('../controllers/socket/socketController')
 const socketio = require('socket.io')
+const db = require('../../models')
+const Message = db.Message
+const User = db.User
+
 
 module.exports = (server) => {
   const io = socketio(server)
@@ -16,12 +20,29 @@ module.exports = (server) => {
     })
 
     /* join public room */
-    socket.on('join-public-room',
-      io.emit('new-join', socketController.joinPublicRoom)
-    )
+    socket.on('join-public-room', async ({ userId }) => {
+      const user = await User.findByPk(userId)
+      io.emit('new-join', {
+        name: user.name
+      })
+    })
 
     /* get public history */
-    socket.on('get-public-history', socketController.getPublicHistory)
+    socket.on('get-public-history', async (offset, limit, cb) => {
+      const message = await Message.findAll({
+        offset,
+        limit,
+        order: [['createdAt', 'desc']],
+        include: [
+          {
+            model: User,
+            attributes: ['avatar'],
+            as: 'User'
+          }
+        ]
+      })
+      cb(message)
+    })
 
     /* public message */
     socket.on('post-public-msg', async ({ msg, userId }) => {
@@ -37,6 +58,6 @@ module.exports = (server) => {
         avatar: user.avatar
       })
     })
-    
+
   })
 }
