@@ -16,19 +16,19 @@ module.exports = (server) => {
       console.log(`User is offline: ${socket.id}`)
     })
 
-    /* join public room */
-    socket.on('join-public-room',
-      io.emit('new-join', socketController.joinPublicRoom)
-    )
+    // /* join public room */
+    // socket.on('join-public-room',
+    //   io.emit('new-join', socketController.joinPublicRoom)
+    // )
 
-    /* get public history */
-    socket.on('get-public-history', socketController.getPublicHistory)
+    // /* get public history */
+    // socket.on('get-public-history', socketController.getPublicHistory)
 
-    /* public message */
-    socket.on('post-public-msg',
-      socket.broadcast.emit('get-public-msg',
-        socketController.postPublicMsg)
-    )
+    // /* public message */
+    // socket.on('post-public-msg',
+    //   socket.broadcast.emit('get-public-msg',
+    //     socketController.postPublicMsg)
+    // )
   })
 
 }
