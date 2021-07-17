@@ -3,7 +3,8 @@ const userSockets = {}
 const socketController = require('../controllers/socket/socketController')
 
 module.exports = (server) => {
-  const io = require('socket.io')(server)
+  const socketio = require('socket.io')
+  const io = socketio(server)
 
 
   io.on('connection', (socket) => {

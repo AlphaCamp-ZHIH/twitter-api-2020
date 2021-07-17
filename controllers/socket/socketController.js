@@ -4,7 +4,7 @@ const Message = db.Message
 const User = db.User
 
 let socketController = {
-  getPublicHistory: (offset, limit, cb) => {
+  getPublicHistory: async (offset, limit, cb) => {
     const message = await Message.findAll({
       offset,
       limit,
@@ -19,7 +19,7 @@ let socketController = {
     })
     cb(message)
   },
-  joinPublicRoom: ({ userId }) => {
+  joinPublicRoom: async ({ userId }) => {
     const user = await User.findByPk(userId)
     return {
       name: user.name
