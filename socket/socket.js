@@ -16,7 +16,9 @@ module.exports = (server) => {
     console.log('user data', socket)
     /* connect */
     sockets.push(socket)
-    // userSockets[socket.request.user.id] = socket.id
+    socket.on('send_userId', (userId) => {
+      userSockets[userId] = socket.id
+    })
     console.log(`User is online: ${socket.id}`)
     socket.emit('message', `Your socket id is  ${socket.id}`)
 
