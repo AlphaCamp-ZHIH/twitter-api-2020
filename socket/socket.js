@@ -32,7 +32,7 @@ module.exports = (server) => {
     })
 
     /* get public history */
-    socket.on('get_public_history', async (offset, limit, cb) => {
+    socket.on('get_public_history', async ({ offset, limit }, cb) => {
       const message = await Message.findAll({
         offset,
         limit,
