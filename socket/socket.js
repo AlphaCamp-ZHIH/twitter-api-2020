@@ -10,12 +10,12 @@ module.exports = (server) => {
   io.on('connection', (socket) => {
     /* connect */
     console.log(`User is online: ${socket.id}`)
-    socket.emit('message', `Your socket id is  ${socket.id}`)
-    socket.on('sendMessage', (data) => console.log(data))
-    /* disconnect */
-    socket.on('disconnect', () => {
-      console.log(`User is offline: ${socket.id}`)
-    })
+    // socket.emit('message', `Your socket id is  ${socket.id}`)
+    // socket.on('sendMessage', (data) => console.log(data))
+    // /* disconnect */
+    // socket.on('disconnect', () => {
+    //   console.log(`User is offline: ${socket.id}`)
+    // })
 
     // /* join public room */
     // socket.on('join-public-room',
