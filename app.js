@@ -36,7 +36,6 @@ const io = require('socket.io')(server)
 io.on('connection', (socket) => {
   console.log(`User is online: ${socket.id}`)
   socket.emit('message', `Your socket id is  ${socket.id}`)
-  socket.on('m')
   socket.on('disconnect', () => {
     console.log(`User is offline: ${socket.id}`)
   })
