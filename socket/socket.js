@@ -7,12 +7,12 @@ const Message = db.Message
 const User = db.User
 
 
-module.exports = (server, req) => {
+module.exports = (server) => {
   const io = socketio(server)
   io.on('connection', (socket) => {
     /* connect */
     sockets.push(socket)
-    userSockets[socket.id] = req.user.id
+    userSockets[socket.id] = 1
     console.log(`User is online: ${socket.id}`)
     console.log('sockets', sockets)
     console.log('userSockets', userSockets)
