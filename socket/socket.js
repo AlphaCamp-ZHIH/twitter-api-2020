@@ -14,8 +14,6 @@ module.exports = (server) => {
     sockets.push(socket)
     userSockets[socket.id] = 1
     console.log(`User is online: ${socket.id}`)
-    console.log('sockets', sockets)
-    console.log('userSockets', userSockets)
     socket.emit('message', `Your socket id is  ${socket.id}`)
     socket.on('sendMessage', (data) => console.log(data))
     /* disconnect */
@@ -23,8 +21,6 @@ module.exports = (server) => {
       delete userSockets[socket.id]
       sockets.splice(sockets.indexOf(socket), 1)
       console.log(`User is offline: ${socket.id}`)
-      console.log('sockets', sockets)
-      console.log('userSockets', userSockets)
     })
 
     /* join public room */
