@@ -1,12 +1,10 @@
 const sockets = []
 const userSockets = {}
 const socketController = require('../controllers/socket/socketController')
+const socketio = require('socket.io')
 
 module.exports = (server) => {
-  const socketio = require('socket.io')
   const io = socketio(server)
-
-
   io.on('connection', (socket) => {
     /* connect */
     console.log(`User is online: ${socket.id}`)
