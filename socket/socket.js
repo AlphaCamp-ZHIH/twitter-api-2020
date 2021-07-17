@@ -24,10 +24,19 @@ module.exports = (server) => {
     socket.on('get-public-history', socketController.getPublicHistory)
 
     /* public message */
-    socket.on('post-public-msg',
-      socket.broadcast.emit('get-public-msg',
-        socketController.postPublicMsg)
-    )
+    socket.on('post-public-msg', async ({ msg, userId }) => {
+      const message = await Message.create({
+        RoomId: 1,
+        UserId: userId,
+        content: msg
+      })
+      const user = await User.findByPk(userId)
+      socket.broadcast.emit('get-public-msg', {
+        msg: message.content,
+        createdAt: message.createdAt,
+        avatar: user.avatar
+      })
+    })
+    
   })
-
 }

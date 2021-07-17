@@ -24,19 +24,6 @@ let socketController = {
     return {
       name: user.name
     }
-  },
-  postPublicMsg: async ({ msg, userId }) => {
-    const message = await Message.create({
-      RoomId: 1,
-      UserId: userId,
-      content: msg
-    })
-    const user = await User.findByPk(userId)
-    return {
-      msg: message.content,
-      createdAt: message.createdAt,
-      avatar: user.avatar
-    }
-  },
+  }
 }
 module.exports = socketController
