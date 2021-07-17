@@ -25,7 +25,7 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(cors())
-app.listen(port, () => console.log(`Example app listening on port ${port}!`))
+server.listen(port, () => console.log(`Example app listening on port ${port}!`))
 
 module.exports = app
 
