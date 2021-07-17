@@ -7,16 +7,24 @@ const Message = db.Message
 const User = db.User
 
 
-module.exports = (server) => {
+module.exports = (server, req) => {
   const io = socketio(server)
   io.on('connection', (socket) => {
     /* connect */
+    sockets.push(socket)
+    userSockets[socket.id] = req.user.id
     console.log(`User is online: ${socket.id}`)
+    console.log('sockets', sockets)
+    console.log('userSockets', userSockets)
     socket.emit('message', `Your socket id is  ${socket.id}`)
     socket.on('sendMessage', (data) => console.log(data))
     /* disconnect */
     socket.on('disconnect', () => {
+      delete userSockets[socket.id]
+      sockets.splice(sockets.indexOf(socket), 1)
       console.log(`User is offline: ${socket.id}`)
+      console.log('sockets', sockets)
+      console.log('userSockets', userSockets)
     })
 
     /* join public room */

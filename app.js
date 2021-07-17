@@ -27,4 +27,4 @@ server.listen(port, () => console.log(`Example app listening on port ${port}!`))
 module.exports = app
 
 require('./routes/index')(app)
-require('./socket/socket')(server)
+require('./socket/socket')(server, req)
