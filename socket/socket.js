@@ -12,18 +12,18 @@ module.exports = (server) => {
   const wrap = (middleware) => (socket, next) =>
     middleware(socket.request, {}, next)
 
-  io.use(wrap(authenticatedSocket)).on('connection', (socket) => {
+  io.on('connection', (socket) => {
     console.log('user data', socket.request.user)
     /* connect */
     sockets.push(socket)
-    userSockets[socket.request.user.id] = socket.id
+    // userSockets[socket.request.user.id] = socket.id
     console.log(`User is online: ${socket.id}`)
     socket.emit('message', `Your socket id is  ${socket.id}`)
 
     socket.on('sendMessage', (data) => console.log(data))
     /* disconnect */
     socket.on('disconnect', () => {
-      delete userSockets[socket.request.user.id]
+      // delete userSockets[socket.request.user.id]
       sockets.splice(sockets.indexOf(socket), 1)
       console.log(`User is offline: ${socket.id}`)
     })
