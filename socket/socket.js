@@ -26,7 +26,14 @@ module.exports = (server) => {
     /* join public room */
     socket.on('join_public_room', async ({ userId }) => {
       const user = await User.findByPk(userId)
-      io.emit('new_join', {
+      io.emit('user_join', {
+        name: user.name
+      })
+    })
+    /* leave public room */
+    socket.on('leave_public_room', async ({ userId }) => {
+      const user = await User.findByPk(userId)
+      io.emit('user_leave', {
         name: user.name
       })
     })
