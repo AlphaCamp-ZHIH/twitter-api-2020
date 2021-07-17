@@ -13,7 +13,7 @@ module.exports = (server) => {
     middleware(socket.request, {}, next)
 
   io.on('connection', (socket) => {
-    console.log('user data', socket)
+    console.log('user data', socket.handshake)
     /* connect */
     sockets.push(socket)
     // userSockets[socket.request.user.id] = socket.id
