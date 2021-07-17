@@ -32,11 +32,25 @@ module.exports = app
 require('./routes/index')(app)
 /* socket test */
 const io = require('socket.io')(server)
+const sockets = []
+const userSockets = {}
 
 io.on('connection', (socket) => {
+  /* connect */
+  sockets.push(socket)
+  // userSockets[socket.id] = req.user.id
   console.log(`User is online: ${socket.id}`)
   socket.emit('message', `Your socket id is  ${socket.id}`)
+  socket.on('sendMessage', (data) => console.log(data))
+  /* disconnect */ 
   socket.on('disconnect', () => {
+    // delete userSockets[socket.id]
+    // sockets.splice(sockets.indexOf(socket), 1)
     console.log(`User is offline: ${socket.id}`)
   })
+
+  /* public message */
+  socket.on('')
+
+
 })
