@@ -484,24 +484,14 @@ let socketService = {
   },
   createTimelineRecord: async (ReceiverId, PostId, type, currentUserId) => {
     if (type === 1) {
-      const followOptions = {
-        where: {
-          followingId: currentUserId,
-          isSubscribing: true
-        },
-        attributes: ['id', 'followerId'],
-        raw: true
-      }
-      let subscribersData = await Followship.findAll(followOptions)
-      subscribersData = subscribersData.map((follower) => ({
-        UserId: follower.followerId,
+      let record = await TimelineRecord.create({
+        UserId: ReceiverId,
         SubscribeTweetId: PostId
-      }))
-      let data = await TimelineRecord.bulkCreate(subscribersData)
-      data = data.map((item) => item.dataValues)
+      })
+      record = record.toJSON()
       return {
-        receiverId: data.map((item) => item.UserId),
-        record: data
+        receiverId: [ReceiverId],
+        record: [record]
       }
     }
     if (type === 2) {
@@ -527,14 +517,24 @@ let socketService = {
       }
     }
     if (type === 4) {
-      let record = await TimelineRecord.create({
-        UserId: ReceiverId,
+      const followOptions = {
+        where: {
+          followingId: currentUserId,
+          isSubscribing: true
+        },
+        attributes: ['id', 'followerId'],
+        raw: true
+      }
+      let subscribersData = await Followship.findAll(followOptions)
+      subscribersData = subscribersData.map((follower) => ({
+        UserId: follower.followerId,
         SubscribeTweetId: PostId
-      })
-      record = record.toJSON()
+      }))
+      let data = await TimelineRecord.bulkCreate(subscribersData)
+      data = data.map((item) => item.dataValues)
       return {
-        receiverId: [ReceiverId],
-        record: [record]
+        receiverId: data.map((item) => item.UserId),
+        record: data
       }
     }
   },
