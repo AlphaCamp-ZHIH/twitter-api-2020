@@ -16,7 +16,7 @@ DEMO 帳號
 | user       |   user5@example.com    | 12346578 |
 | admin      |    root@example.com    | 12345678 |
 ## 前端repo
-+ 前端成員: Daisey 、 阿勳  
++ 前端成員: Daisy 、 阿勳  
 + [repo連結](https://github.com/RyanHsun/simple-twitter-frontend)
 ## 功能
 
@@ -181,7 +181,8 @@ Followships (追蹤 or 不追蹤 使用者)
 |POST|​/api​/followships|追蹤指定使用者|
 |DELETE|​/api​/followships​/{id}|取消追蹤使用者|
 ____
-## scoket 事件
+## socket 事件
+(備註: 以下事件是以前端串接角度撰寫，若以後端角度請將emit、on 對調)
 ### 公開聊天室
 |    事件名稱    | 方法                | 內容|
 | ---------- | -------                | ---|
@@ -223,4 +224,4 @@ ____
 |    name    | account                |
 | ---------- | -------                | 
 | ZHIH       | fufong79570@gmail.com  |
-| Tailess    | https://github.com/Jennesy  |
+| Jennesy   | https://github.com/Jennesy  |
